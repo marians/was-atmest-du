@@ -28,3 +28,21 @@ Each Excel file contains yearly average data per station.
 Data on nitrogen dioxide emissions (Stickstoffdioxid). Files originate from http://www.env-it.de/umweltbundesamt/luftdaten/documents.fwd
 
 Each Excel file contains yearly average values plus the count of measures above a certain threshold per station.
+
+
+#scripts
+
+This should contain Python tools to work with the data.
+
+Here is a flexible way to handle the requirements.
+
+1. Install virtualenv
+2. Go to the top folder of your local clone of this repository and do:
+
+    virtualenv venv
+    . venv/bin/activate
+    pip install xlrd
+
+Now whenever you want to run one of the scripts, start your virtual environment first using
+
+    . venv/bin/activate
