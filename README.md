@@ -14,6 +14,9 @@ Here is where original data as copied from providers is placed
 
 Data from the Umweltbundesamt, Germany's federal environment agency
 
+* Bericht_EU_Meta_Stationen.csv: List of stations, including historic data. Source: http://www.env-it.de/stationen/public/downloadRequest.do
+* Bericht_EU_Meta_Stationsparameter.csv: List of stations with additional information, including historic data. Source: http://www.env-it.de/stationen/public/downloadRequest.do
+
 ##data/source/umweltbundesamt/pm10
 
 Data on particle emissions finer than 10 µm. Files originate from http://www.env-it.de/umweltbundesamt/luftdaten/documents.fwd
