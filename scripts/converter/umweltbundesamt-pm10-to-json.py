@@ -93,7 +93,7 @@ DATA_ASSUMPTIONS_AND_MAPPING = {
         'columns': {
             0: {
                 'headline': u"Stationscode",
-                'field': None
+                'field': 'station_id'
             },
             1: {
                 'headline': u'Name / Messnetz',
@@ -382,7 +382,9 @@ def get_year_data(year, filename):
                             if mapping['columns'][n]['type'] == 'int':
                                 val = int(val)
                     dataset[mapping['columns'][n]['field']] = val
-                    data.append(dataset)
+            if dataset['station_id'] is not None:
+                dataset['station_id'] = dataset['station_id'].replace('*', '')
+                data.append(dataset)
         return data
     else:
         print "ERROR: No mapping configuration for year " + str(year) + " available. Please add to DATA_ASSUMPTIONS_AND_MAPPING."
@@ -395,7 +397,20 @@ if __name__ == '__main__':
         # assumption: file name is like PM10_<year>.xls[x]
         year = int(os.path.splitext(f)[0].split('_')[1])
         data[year] = get_year_data(year, f)
-    #print json.dumps(data, indent=4)
+    # aggregate per station
+    stationdata = {}
+    for year in data:
+        for entry in data[year]:
+            print entry
+            if entry['station_id'] not in stationdata:
+                stationdata[entry['station_id']] = {}
+            for key in entry:
+                if key == 'station_id':
+                    continue
+                if key not in stationdata[entry['station_id']]:
+                    stationdata[entry['station_id']][key] = {}
+                stationdata[entry['station_id']][key][year] = entry[key]
     f = open(DESTINATION_FILE, 'w')
-    f.write(json.dumps(data, indent=4, sort_keys=True))
+    f.write(json.dumps(stationdata, indent=4, sort_keys=True))
     f.close()
+
